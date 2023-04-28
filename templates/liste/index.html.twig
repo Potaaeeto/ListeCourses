@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste index{% endblock %}
+
+{% block body %}
+    <h1>Liste index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope = "col">Id</th>
+                <th scope = "col">Nom</th>
+                <th scope = "col">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for liste in listes %}
+            <tr>
+                <td>{{ liste.id }}</td>
+                <td>{{ liste.nom }}</td>
+                <td>
+                    <a href="{{ path('app_liste_show', {'id': liste.id}) }}">Contenu</a>
+                    <a href="{{ path('app_liste_edit', {'id': liste.id}) }}">Modifier</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3">Aucune liste pour l'instant</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_liste_new') }}">Créer une nouvelle liste de course</a>
+{% endblock %}

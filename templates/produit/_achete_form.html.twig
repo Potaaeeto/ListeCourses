@@ -1,0 +1,5 @@
+
+<form method="post" action="{{ path('app_produit_achete', {'id': produit.id}) }}">
+    <input type="hidden" name="_token" value="{{ csrf_token('achete' ~ produit.id) }}">
+    <button class="btn">Marquer comme acheté</button>
+</form>

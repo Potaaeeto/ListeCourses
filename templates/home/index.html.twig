@@ -1,0 +1,77 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Accueil{% endblock %}
+
+{% block carousel %}{% endblock %}
+
+{% block body %}
+    <style>
+        .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+        .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+
+    </style>
+
+    {% if app.user %}
+        <h1>Listes de courses</h1>
+
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nom</th>
+                <th>Actions</th>
+                <th>Articles</th>
+
+            </tr>
+            </thead>
+            <tbody>
+            {% for liste in listes %}
+                <tr>
+                    <td>{{ liste.id }}</td>
+                    <td>{{ liste.nom }}</td>
+                    <td>
+                        <a href="{{ path('app_liste_show', {'id': liste.id}) }}">Contenu</a>
+                        <a href="{{ path('app_liste_edit', {'id': liste.id}) }}">Modifier</a>
+                        {{ include('liste/_delete_form.html.twig') }}
+                    </td>
+                    <td>{{ liste.produit | length }}</td>
+
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="3">Aucun produit pour l'instant</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+        <a href="{{ path('app_liste_new') }}">Créer une nouvelle liste de course</a>
+
+        <h3>Les statistiques</h3>
+
+        <p>Total dépensé : {{ total }} €</p>
+        <p>Nombre de produits : {{ nombreProduits }} </p>
+        <p>Moyenne : {{ moyenne }} €</p>
+        <p>Article le plus cher :  {% if produitPlusCher is not null %}{{ produitPlusCher.nom }} ({{ produitPlusCher.prix }} €) {% endif %}</p>
+        <p>Article le moins cher : {% if produitMoinsCher is not null %}{{ produitMoinsCher.nom }} ({{ produitMoinsCher.prix }} €){% endif %}</p>
+
+        <p> Répartition en fréquence</p>
+        <ul>
+            {% for produit in produits %}
+                {% set pourcentage = (produit.prix * produit.quantite / total) * 100 %}
+                <li>{{ produit.nom }} - {{ pourcentage|round(2) }} %</li>
+            {% endfor %}
+        </ul>
+        <p>Répartition en monétaire</p>
+        <ul>
+            {% for produit in produits %}
+                {% set pourcentage = (produit.quantite / nombreProduits) * 100 %}
+                <li>{{ produit.nom }} - {{ pourcentage|round(2) }} %</li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <h1>Connectez vous pour voir vos listes de courses 😉</h1>
+        <h2><a href="{{ path('app_login') }}">Connexion</a> | <a href="{{ path('app_register') }}">Inscription</a></h2>
+    {% endif %}
+
+{% endblock %}

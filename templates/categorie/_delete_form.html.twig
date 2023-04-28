@@ -1,0 +1,16 @@
+<style>
+    .btn{
+        color: #147cfc;
+        margin-left: 10px;
+    }
+    .btn:hover{
+        color: #0454b4;
+        text-decoration: underline;
+    }
+</style>
+
+<form method="post" action="{{ path('app_categorie_delete', {'id': categorie.id}) }}"
+      onsubmit="return confirm('Etes vous sure de vouloir supprimer cette categorie?');">
+    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ categorie.id) }}">
+    <button class="btn">Supprimer</button>
+</form>

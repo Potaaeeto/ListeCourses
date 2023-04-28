@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste{% endblock %}
+
+{% block body %}
+    <style>
+        h3{
+            padding-top: 50px;
+        }
+    </style>
+    <h1>Ma liste "{{ liste.nom }}" </h1>
+    Vous avez {{ liste.produit | length }} different(s) produit(s) </br>
+
+
+    <a href="{{ path('app_home') }}">Retour à mes listes de courses<br></a>
+
+    <a href="{{ path('app_liste_edit', {'id': liste.id}) }}">Modifier le nom de ma liste</a>
+
+    {{ include('liste/_delete_form.html.twig') }}
+
+    {{ include('produit/index.html.twig', {'liste': liste}) }}
+
+    <h3>Les statistiques</h3>
+
+    <p>Total dépensé : {{ total }} €</p>
+    <p>Nombre de produits : {{ nombreProduits }} </p>
+    <p>Moyenne : {{ moyenne }} €</p>
+    <p>Article le plus cher :  {% if produitPlusCher is not null %}{{ produitPlusCher.nom }} ({{ produitPlusCher.prix }} €) {% endif %}</p>
+    <p>Article le moins cher : {% if produitMoinsCher is not null %}{{ produitMoinsCher.nom }} ({{ produitMoinsCher.prix }} €){% endif %}</p>
+
+    <p> Répartition en fréquence</p>
+    <ul>
+        {% for produit in produits %}
+            {% set pourcentageMonetaire = (produit.prix * produit.quantite / total) * 100 %}
+            <li>{{ produit.nom }} - {{ pourcentageMonetaire|round(2) }} %</li>
+        {% endfor %}
+    </ul>
+    <p>Répartition monétaire</p>
+    <ul>
+        {% for produit in produits %}
+            {% set pourcentageFrequence = (produit.quantite / nombreProduits) * 100 %}
+            <li>{{ produit.nom }} - {{ pourcentageFrequence|round(2) }} %</li>
+        {% endfor %}
+    </ul>
+{% endblock %}

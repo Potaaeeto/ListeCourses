@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Produit{% endblock %}
+
+{% block body %}
+    <h1>Création d'un nouvel article</h1>
+
+    {{ include('produit/_form.html.twig') }}
+
+    <a href="{{ path('app_liste_show', {'id':liste.id}) }}">Retour à ma liste de course</a>
+{% endblock %}

@@ -1,0 +1,15 @@
+<style>
+    .btn{
+        color: #147cfc;
+        margin-left: 25px;
+    }
+    .btn:hover{
+        color: #0454b4;
+        text-decoration: underline;
+    }
+</style>
+
+{{ form_start(form) }}
+    {{ form_widget(form) }}
+    <button class="btn">{{ button_label|default('Sauvegarder') }}</button>
+{{ form_end(form) }}

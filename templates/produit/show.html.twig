@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Produit{% endblock %}
+
+{% block body %}
+    <h1>Produit</h1>
+    {% if produit.image %}<img  src="{{ asset('uploads/images/' ~ produit.image) }}" alt="image de {{ produit.nom }}">{% endif %}
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ produit.id }}</td>
+            </tr>
+            <tr>
+                <th>Nom</th>
+                <td>{{ produit.nom }}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ produit.description }}</td>
+            </tr>
+            <tr>
+                <th>Quantite</th>
+                <td>{{ produit.quantite }}</td>
+            </tr>
+            <tr>
+                <th>Prix</th>
+                <td>{{ produit.prix }}</td>
+            </tr>
+            <tr>
+                <th>Catégorie(s)</th>
+                <td>
+                    {% for categorie in produit.type %}
+                        {{ categorie.nom }}
+                        {% if not loop.last %}, {% endif %}
+                    {% endfor %}
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_liste_show', {'id': produit.liste.id}) }}">Retour à la liste<br></a>
+
+    <a href="{{ path('app_produit_edit', {'id': produit.id}) }}">Modifier</a>
+
+    {{ include('produit/_delete_form.html.twig') }}
+
+{% endblock %}

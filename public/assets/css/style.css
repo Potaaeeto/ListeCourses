@@ -1,0 +1,37 @@
+
+/*body {
+    position: relative;
+}
+*/
+
+.navbar-item-custom, .navbar-item-custom a {
+    color: #fff;
+}
+
+.footer-custom {
+    text-align: center;
+    position: relative;
+    width: 100%;
+    background-color: lightgray;
+}
+
+h1{
+    margin-top: 3rem;
+}
+
+label {
+    display: flex;
+    margin-bottom: .2rem;
+}
+
+input[id="produit_"]{
+    margin-bottom: 1rem;
+}
+
+img {
+    height: 20em;
+}
+
+td img {
+    height: 5em;
+}   
